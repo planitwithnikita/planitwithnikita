@@ -204,7 +204,7 @@
     const glass = document.getElementById('floralGlass');
     let mouse = { x: null, y: null };
     let cur = { x: null, y: null };
-    const R = () => Math.min(window.innerWidth, window.innerHeight) * 0.22;
+    const R = () => window.innerWidth <= 480 ? Math.min(window.innerWidth, window.innerHeight) * 0.38 : Math.min(window.innerWidth, window.innerHeight) * 0.22;
     const lerp = (a, b, t) => a + (b - a) * t;
 
     function getPos(e) {
