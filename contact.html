@@ -210,6 +210,8 @@
     .contact-social svg { width: 20px; height: 20px; fill: currentColor; display: block; }
     .contact-form-wrap { background: var(--card); padding: 56px 24px 72px; }
     .contact-form { display: flex; flex-direction: column; gap: 20px; max-width: 480px; margin: 32px auto 0; }
+    .contact-form[hidden] { display: none; }
+    .form-success-screen[hidden] { display: none; }
     .form-row { display: flex; flex-direction: column; gap: 6px; }
     .form-row label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mid); text-align: left; }
     .form-row input, .form-row select, .form-row textarea {
@@ -232,10 +234,11 @@
     .form-row select option[value=""] { color: rgba(43,39,36,0.6); }
     .form-row select option { color: #000; font-weight: 400; }
     .form-submit { margin-top: 8px; align-self: center; border: none; cursor: pointer; }
-    .form-success { margin-top: 4px; text-align: center; font-size: 14px; color: #2e7d32; }
     .form-error { margin-top: 4px; text-align: center; font-size: 14px; color: #c62828; }
     .form-error a { color: inherit; }
     .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-success-screen { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; padding: 40px 0; }
+    .form-success-text { font-size: 16px; color: #2e7d32; margin: 0; }
     /* ── CUSTOM DATE PICKER ── */
     .date-field { position: relative; }
     .date-field input { cursor: pointer; }
@@ -386,9 +389,12 @@
             <input type="number" id="cf-days" name="numberOfDays" min="1" step="1" placeholder="e.g. 1"/>
           </div>
           <button type="submit" class="cta cta-primary form-submit" id="formSubmit">Send Message</button>
-          <p class="form-success" id="formSuccess" role="status" hidden>Thank you! Your message has been sent — we'll be in touch soon.</p>
           <p class="form-error" id="formError" role="status" hidden>Something went wrong sending your message. Please email us directly at <a href="mailto:events@planitwithnikita.com">events@planitwithnikita.com</a>.</p>
         </form>
+        <div class="form-success-screen" id="formSuccessScreen" role="status" hidden>
+          <p class="form-success-text">Thank you! Your message has been sent — we'll be in touch soon.</p>
+          <button type="button" class="cta cta-primary" id="sendAnotherBtn">Send Another Message</button>
+        </div>
       </div>
     </div>
   </section>
@@ -432,12 +438,12 @@
     var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxta28g-S8vHZmAmN-wfWSGsKIBaX9maYvnE7pK8L7i7TSX8v-XApJWpDRvmAcldS0NzA/exec';
     var contactForm = document.getElementById('contactForm');
     var formSubmit = document.getElementById('formSubmit');
-    var formSuccess = document.getElementById('formSuccess');
     var formError = document.getElementById('formError');
+    var formSuccessScreen = document.getElementById('formSuccessScreen');
+    var sendAnotherBtn = document.getElementById('sendAnotherBtn');
 
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      formSuccess.hidden = true;
       formError.hidden = true;
       formSubmit.disabled = true;
       formSubmit.textContent = 'Sending…';
@@ -449,13 +455,19 @@
       }).then(function() {
         contactForm.reset();
         dateInput.value = '';
-        formSuccess.hidden = false;
+        contactForm.hidden = true;
+        formSuccessScreen.hidden = false;
       }).catch(function() {
         formError.hidden = false;
       }).finally(function() {
         formSubmit.disabled = false;
         formSubmit.textContent = 'Send Message';
       });
+    });
+
+    sendAnotherBtn.addEventListener('click', function() {
+      formSuccessScreen.hidden = true;
+      contactForm.hidden = false;
     });
 
     // ── CUSTOM DATE PICKER ──
