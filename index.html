@@ -115,7 +115,7 @@
   <section class="section welcome">
     <span class="eyebrow fu">Welcome to PlanIt with Nikita</span>
     <h2 class="section-title fu">A planning &amp; design team turning <em>every kind of celebration</em> into a story worth telling.</h2>
-    <p class="welcome-body fu">From the smallest detail to the grandest gesture,<br>we hold the vision so you can cherish the <em>moment</em>.</p>
+    <p class="welcome-body fu">From the smallest detail to the grandest gesture,<br class="br-desktop-only"> we hold the vision so you can cherish the <em>moment</em>.</p>
   </section>
 
   <!-- ════ IMAGE PAIR ════ -->
@@ -297,13 +297,6 @@
     </div>
   </div>
   <script>
-    (function() {
-      function setVH() {
-        document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
-      }
-      setVH();
-      window.addEventListener('resize', setVH);
-    })();
     var menuToggle = document.getElementById('menuToggle');
     var mobileMenu = document.getElementById('mobileMenu');
     menuToggle.addEventListener('click', function() {
