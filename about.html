@@ -68,8 +68,8 @@
     @media (prefers-reduced-motion: reduce) { .page-hero-bg { animation: none !important; } }
     /* ── ABOUT: full-viewport sections, shared image+text layout ── */
     .about-fullsection {
+      min-height: 100vh;
       min-height: 100dvh;
-      min-height: calc(var(--vh, 1vh) * 100);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -365,13 +365,6 @@
   </div>
 
   <script>
-    (function() {
-      function setVH() {
-        document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
-      }
-      setVH();
-      window.addEventListener('resize', setVH);
-    })();
     var menuToggle = document.getElementById('menuToggle');
     var mobileMenu = document.getElementById('mobileMenu');
     menuToggle.addEventListener('click', function() {
